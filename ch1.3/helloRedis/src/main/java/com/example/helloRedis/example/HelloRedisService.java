@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -58,13 +59,19 @@ public class HelloRedisService {
     //endregion
     //region hash
     public void testHashPut(){
-        redisTemplate.opsForHash().put("TestHash","FirstElement","Hello,Redis hash.");
-        boolean result = redisTemplate.opsForHash().hasKey("TestHash","FirstElement");
+        stringRedisTemplate.opsForHash().put("TestHash","FirstElement","Hello,Redis hash.");
+//        stringRedisTemplate.opsForHash().put("TestHash","SecondElement",1L);//ClassCastException: java.lang.Long cannot be cast to java.lang.String
+        boolean result = stringRedisTemplate.opsForHash().hasKey("TestHash","FirstElement");
+        HashMap<String, Object> info = new HashMap<>();//文章的详细信息
+        info.put("title", "title");
+        info.put("votes", "1");
+        stringRedisTemplate.opsForHash().putAll("TestHash",info);
+        stringRedisTemplate.opsForHash().increment("TestHash","votes",1);
         System.out.println(result);
     }
 
     public void testHashGet(){
-        Object element = redisTemplate.opsForHash().get("TestHash","FirstElement");
+        Object element = stringRedisTemplate.opsForHash().get("TestHash","FirstElement");
         System.out.println(element);
     }
 

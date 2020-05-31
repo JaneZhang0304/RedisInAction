@@ -91,9 +91,6 @@ public class ArticleService {
      * @param page  页数
      * @param order score:或者 time:
      */
-    public List<Map<Object,Object>> getArticles(int page){
-        return getArticles(page,"score:");
-    }
     public List<Map<Object, Object>> getArticles(int page, String order) {
         int start = (page - 1) * ARTICLES_PER_PAGE;
         int end = start + ARTICLES_PER_PAGE;
@@ -109,7 +106,9 @@ public class ArticleService {
         }
         return articles;
     }
-
+    public List<Map<Object,Object>> getArticles(int page){
+        return getArticles(page,"score:");
+    }
     /**
      * 1.3.3 1-9 对文章进行分组
      *

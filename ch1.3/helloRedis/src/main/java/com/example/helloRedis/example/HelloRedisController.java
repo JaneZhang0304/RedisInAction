@@ -18,5 +18,7 @@ public class HelloRedisController {
         helloRedisService.testLeftPop();
         helloRedisService.testSetAdd();
         helloRedisService.testSetGet();
+        helloRedisService.testHashPut();
+        helloRedisService.testHashGet();
     }
 }
